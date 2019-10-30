@@ -5,13 +5,13 @@ connection = psycopg2.connect(database=DBNAME, user=DBUSER, password=DBPASSWORD,
 # Print places
 def print_place(name, price, category):
     print("Name: {}".format(name))
-    print("Price's level: {}".format(price))
+    print("Price level: {}".format(price))
     print("Food's category: {}\n".format(category))
 
 
 # List places
 def list_places():
-    print("List of places already registered:\n")
+    print("List of registered places:\n")
     
     cursor = connection.cursor()
     cursor.execute('SELECT name, price, category from "PLACES"')
@@ -36,11 +36,11 @@ def insert_place(name, price, category):
 # Register places
 def register_place():
     # name_place
-    name_place = input("Type the name of the place: ")
+    name_place = input("Type the place's name: ")
 
     # price_place
     while True:
-        print("\nType a number to select the price's level:\n"
+        print("\nType a number to select the price level:\n"
               "1: Cheap\n"
               "2: Average\n"
               "3: Expensive\n")
@@ -61,17 +61,17 @@ def register_place():
         print("Option not found.\n")
 
     # category_place
-    print("\nType the food's category of the place:\n"
+    print("\nType the food's category:\n"
           "If it has more than one, please separate them using commas.")
     category_place = input()
 
     insert_place(name_place, price_place, category_place)
 
-    print("\nSuccessfully registered place!\n")
+    print("\nPlace successfully registered!\n")
 
 
 def lets_go_out():
-    print("Draw of places without filters.\n")
+    print("Random place selected:\n")
 
     cursor = connection.cursor()
     cursor.execute('SELECT name, price, category from "PLACES" order by random() limit 1')
@@ -83,7 +83,7 @@ def lets_go_out():
 # Choose options
 while True:
     print("\nType a number to select an option:\n"
-          "1: List places already registered\n"
+          "1: List registered places\n"
           "2: Register a new place\n"
           "3: Let's go Out!\n"
           "4: Exit\n")
